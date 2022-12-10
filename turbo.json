@@ -12,7 +12,8 @@
       "cache": false
     },
     "test": {
-      "outputs": []
+      "outputs": [],
+      "dependsOn": ["build"]
     },
     "test:watch": {
       "cache": false
