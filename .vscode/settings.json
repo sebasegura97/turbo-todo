@@ -1,0 +1,13 @@
+// This vscode setting allows each project in apps/ or packages/ to supply their own 
+// linting config and the extension should read from the config of the project you're in
+// more info: https://github.com/vercel/next.js/issues/40687
+{
+    "eslint.workingDirectories": [
+        {
+            "pattern": "apps/*/"
+        },
+        {
+            "pattern": "packages/*/"
+        }
+    ]
+}
