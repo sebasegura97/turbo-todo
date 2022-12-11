@@ -70,7 +70,6 @@ importers:
       tsconfig: workspace:*
       typescript: ^4.5.3
       ui: workspace:*
-      utils: workspace:*
     dependencies:
       '@react-query-firebase/firestore': 1.0.0-dev.7_r75r7mdpcaa2dw4axgpurkf2ne
       firebase: 9.15.0
@@ -80,7 +79,6 @@ importers:
       react-dom: 18.2.0_react@18.2.0
       react-query: 3.39.2_biqbaboplfbrettd7655fr4n2y
       ui: link:../../packages/ui
-      utils: link:../../packages/utils
     devDependencies:
       '@babel/core': 7.20.5
       '@testing-library/dom': 8.19.0
@@ -139,12 +137,6 @@ importers:
       react: 18.2.0
       tsconfig: link:../tsconfig
       typescript: 4.9.4
-
-  packages/utils:
-    specifiers:
-      firebase: 9.15.0
-    dependencies:
-      firebase: 9.15.0
 
 packages:
 
