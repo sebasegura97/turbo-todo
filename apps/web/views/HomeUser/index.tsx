@@ -1,10 +1,16 @@
-import { Button } from "ui";
+import Background from "./components/Background";
+import TodoApp from "./components/TodoApp";
 
-export default function Homepage() {
+const Homepage: React.FC = () => {
   return (
-    <div>
-      <h1>Hola mundo</h1>
-      <Button />
-    </div>
+    <main className="w-full h-screen bg-slate-900">
+      <Background />
+      <section className="">
+        <h1 className="text-5xl text-white">TODO</h1>
+        <TodoApp />
+      </section>
+    </main>
   );
-}
+};
+
+export default Homepage;
