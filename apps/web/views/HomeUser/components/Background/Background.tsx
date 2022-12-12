@@ -3,10 +3,10 @@ import Image from "next/image";
 // so you can't import directly from "/main-bg.jpg";
 import bgImage from "../../../../public/main-bg.jpg";
 
-const Background = () => {
+const Background: React.FC<{ className?: string }> = ({ className }) => {
   return (
     <>
-      <div className="h-1/3 w-full relative">
+      <div className={className}>
         <div className="absolute inset-0 bg-gradient-to-r from-blue-700 to-fuchsia-600 opacity-30 z-10" />
         <Image
           src={bgImage}
