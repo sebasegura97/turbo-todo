@@ -4,14 +4,15 @@
 // Used for __tests__/testing-library.js
 // Learn more: https://github.com/testing-library/jest-dom
 import "@testing-library/jest-dom/extend-expect";
-jest.mock("firebase/firestore", () => {
-  return {
-    getFirestore: jest.fn(),
-  };
-});
 
-jest.mock("firebase/app", () => {
-  return {
-    initializeApp: jest.fn(),
-  };
-});
+// jest.mock("firebase/firestore", () => {
+//   return {
+//     getFirestore: jest.fn(),
+//   };
+// });
+
+// jest.mock("firebase/app", () => {
+//   return {
+//     initializeApp: jest.fn(),
+//   };
+// });

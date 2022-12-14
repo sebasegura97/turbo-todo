@@ -1,6 +1,13 @@
-# Turborepo starter
 
-This is an official pnpm starter turborepo.
+# Todo App
+Este todo app tiene dos objetivos
+## Stack
+
+**Frontend:** React and Next.js with typescript, tailwind as css framework and framer motion for animations, playwright for e2e and jest for unit testing. Deploy on vercel.
+
+****Backend:**** firebase/firestore.
+
+**CI/CD:** Github actions
 
 ## What's inside?
 
@@ -8,8 +15,8 @@ This turborepo uses [pnpm](https://pnpm.io) as a package manager. It includes th
 
 ### Apps and Packages
 
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
+- `docs`: a [Next.js](https://nextjs.org/) app currently unused
+- `web`: another [Next.js](https://nextjs.org/) app with our todo app code
 - `ui`: a stub React component library shared by both `web` and `docs` applications
 - `eslint-config-custom`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
 - `tsconfig`: `tsconfig.json`s used throughout the monorepo
