@@ -45,7 +45,6 @@ importers:
     specifiers:
       '@babel/core': ^7.0.0
       '@heroicons/react': 2.0.13
-      '@next/font': ^13.0.6
       '@react-query-firebase/firestore': 1.0.0-dev.7
       '@testing-library/dom': 8.19.0
       '@testing-library/jest-dom': 5.16.5
@@ -77,7 +76,6 @@ importers:
       ui: workspace:*
     dependencies:
       '@heroicons/react': 2.0.13_react@18.2.0
-      '@next/font': 13.0.6
       '@react-query-firebase/firestore': 1.0.0-dev.7_r75r7mdpcaa2dw4axgpurkf2ne
       clsx: 1.2.1
       firebase: 9.15.0
@@ -1349,10 +1347,6 @@ packages:
     resolution: {integrity: sha512-z+gnX4Zizatqatc6f4CQrcC9oN8Us3Vrq/OLyc98h7K/eWctrnV91zFZodmJHUjx0cITY8uYM7LXD7IdYkg3kg==}
     dependencies:
       glob: 7.1.7
-    dev: false
-
-  /@next/font/13.0.6:
-    resolution: {integrity: sha512-5vxNmvnV0CbYjQGtztD5Axft9C7npKihbQpiFhnDwdb99f9K/QSFfcJqxz0E5QBkf67O2niVGJ5lApJDu78w0w==}
     dev: false
 
   /@next/swc-android-arm-eabi/13.0.0:
