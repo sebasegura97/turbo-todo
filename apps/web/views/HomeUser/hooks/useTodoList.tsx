@@ -63,7 +63,7 @@ const useTodoList = (listId: string) => {
   };
 
   return {
-    todos: todos.filter((todo) => todo.deletedAt === null),
+    todos: todos?.filter((todo) => todo.deletedAt === null),
     isLoading,
     mutate,
     updateTodo,

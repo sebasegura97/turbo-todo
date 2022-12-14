@@ -36,7 +36,7 @@ const TodoInput: React.FC<TodoInputProps> = ({ className, listId }) => {
   return (
     <div
       className={clsx(
-        "flex items-center bg-slate-800 px-4 py-3 rounded-md",
+        "flex items-center dark:bg-slate-800 bg-slate-200 px-4 py-3 rounded-md",
         className
       )}
     >

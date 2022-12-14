@@ -10,7 +10,7 @@ const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
         type="text"
         ref={ref}
         className={clsx(
-          "focus:outline-none text-white w-full bg-transparent disabled:opacity-50",
+          "focus:outline-none w-full bg-transparent disabled:opacity-75",
           className
         )}
         {...props}

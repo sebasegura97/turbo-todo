@@ -12,7 +12,7 @@ const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
         <input type="checkbox" ref={ref} {...props} />
         <span
           className={clsx(
-            "relative block z-10 h-6 w-6 bg-transparent border border-white rounded-full focus:outline-none",
+            "relative block z-10 h-6 w-6 bg-transparent border dark:border-white border-slate-900  rounded-full focus:outline-none",
             {
               "from-blue-700 to-fuchsia-600 bg-gradient-to-r border-none":
                 props.checked,

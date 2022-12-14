@@ -11,7 +11,7 @@ const TodoItem: React.FC<TodoItemProps> = ({ todo, className, listId }) => {
   return (
     <div
       className={clsx(
-        "flex items-center w-full px-4 py-3 bg-slate-800 hover:bg-slate-700 hover:cursor-pointer",
+        "flex items-center w-full px-4 py-3 hover:bg-slate-100 transition-all dark:hover:bg-slate-700 hover:cursor-pointer",
         className
       )}
     >
@@ -21,7 +21,7 @@ const TodoItem: React.FC<TodoItemProps> = ({ todo, className, listId }) => {
         onChange={() => updateTodo(todo.id, { done: !todo.done })}
       />
       <p
-        className={clsx("text-white opacity-95", {
+        className={clsx("opacity-95", {
           "opacity-60 line-through": todo.done,
         })}
       >

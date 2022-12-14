@@ -39,8 +39,8 @@ const TodoList: React.FC<TodoListProps> = ({ listId }) => {
 
   if (!isLoading && !todos?.length) {
     return (
-      <div className="bg-slate-800 rounded-lg px-4 py-3 h-12 flex items-center">
-        <p className="text-white"> Write your first task </p>
+      <div className="dark:bg-slate-800 bg-slate-300 rounded-lg px-4 py-3 h-12 flex items-center">
+        <p> Write your first task </p>
       </div>
     );
   }
@@ -58,9 +58,9 @@ const TodoList: React.FC<TodoListProps> = ({ listId }) => {
     }, 0);
 
     return (
-      <div className="bg-slate-800 rounded-lg text-white text-opacity-50 pt-3">
+      <div className="dark:bg-slate-800 bg-slate-200 rounded-lg text-opacity-50 overflow-auto">
         {remaining === 0 && (
-          <p className="pb-4 px-4"> Any task match filters </p>
+          <p className="py-3 px-4"> Any task match filters </p>
         )}
         {/* Todo List */}
         <Reorder.Group values={todos} axis="y" onReorder={handleReorder}>
