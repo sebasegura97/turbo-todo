@@ -1,15 +1,6 @@
-import {
-  ChangeEvent,
-  ChangeEventHandler,
-  KeyboardEvent,
-  useRef,
-  useState,
-} from "react";
+import { ChangeEvent, KeyboardEvent, useState } from "react";
 import clsx from "clsx";
-import { collection } from "firebase/firestore";
-import { useFirestoreCollectionMutation } from "@react-query-firebase/firestore";
 
-import { firestore } from "../../../../utils/firebase";
 import Checkbox from "../Checkbox";
 import TextField from "../TextField";
 import { TodoInputProps } from "./types";
@@ -18,36 +9,20 @@ import useTodoList from "../../hooks/useTodoList";
 const TodoInput: React.FC<TodoInputProps> = ({ className, listId }) => {
   const [task, setTask] = useState("");
   const [done, setDone] = useState(false);
-  const { todos } = useTodoList(listId);
-
-  const todoCollectionRef = collection(firestore, `listas/${listId}/todos/`);
-  const mutation = useFirestoreCollectionMutation(todoCollectionRef);
+  const { createTodo } = useTodoList(listId);
 
   const handleKeyUp = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter" && task.length) {
-      setTask("");
-      handleCreateTodo();
+      resetInput();
+      createTodo({ task, done });
     }
   };
 
   const resetInput = () => {
     if (task) {
+      setTask("");
       setDone(false);
     }
-  };
-
-  const handleCreateTodo = () => {
-    mutation.mutate(
-      {
-        task,
-        deletedAt: null,
-        done,
-        order: todos ? todos.length + 1 : 0,
-      },
-      {
-        onSuccess: resetInput,
-      }
-    );
   };
 
   const handleCheckbox = () => {

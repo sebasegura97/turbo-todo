@@ -4,25 +4,20 @@ export type HomeUserProps = {
   listId: string;
 };
 
-export type TodoList = {
-  id: string;
-  todos: TodoType[];
-  createdAt: Date;
-  updatedAt?: Date;
-};
-
-export type TodoListInput = {
-  createdAt: string;
-};
-
-export type TodoType = {
-  id: string;
-  task: string;
-  done: boolean;
-  deletedAt: Timestamp;
-};
-
-export type TodoInput = {
+export type FirestoreTodo = {
+  id?: string;
   task?: string;
+  done?: boolean;
+  deletedAt?: Timestamp | null;
+};
+
+export type FirestoreTodoList = {
+  todos?: FirestoreTodo[];
+  createdAt?: Timestamp;
+  updatedAt?: Timestamp;
+};
+
+export type CreateTodoType = {
+  task: string;
   done?: boolean;
 };

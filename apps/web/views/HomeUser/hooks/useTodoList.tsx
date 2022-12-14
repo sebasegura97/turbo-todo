@@ -1,41 +1,73 @@
-import { useFirestoreQueryData } from "@react-query-firebase/firestore";
 import {
-  collection,
-  orderBy,
-  query,
+  useFirestoreDocument,
+  useFirestoreDocumentMutation,
+} from "@react-query-firebase/firestore";
+import {
+  arrayUnion,
+  doc,
+  DocumentData,
   QueryDocumentSnapshot,
-  where,
+  SnapshotOptions,
+  Timestamp,
   WithFieldValue,
 } from "firebase/firestore";
 import { firestore } from "../../../utils/firebase";
-import { TodoType } from "../types";
+import { FirestoreTodoList, FirestoreTodo, CreateTodoType } from "../types";
 
 const useTodoList = (listId: string) => {
-  const ref = query(
-    collection(firestore, `listas/${listId}/todos`),
-    orderBy("order", "desc")
-    // If you add where deletedAt it'll break the order (could improve with a transaction)
-    // where("deletedAt", "==", null)
-  ).withConverter<TodoType>({
-    toFirestore: (data: WithFieldValue<TodoType>) => data,
-    fromFirestore: (snap: QueryDocumentSnapshot) => {
-      const converted = {
-        id: snap.id,
-        ...snap.data(),
-      };
-      return converted as TodoType;
+  const ref = doc(firestore, "listas", listId).withConverter({
+    toFirestore(list: WithFieldValue<FirestoreTodoList>): DocumentData {
+      return { ...list };
+    },
+    fromFirestore(
+      snapshot: QueryDocumentSnapshot,
+      options: SnapshotOptions
+    ): FirestoreTodoList {
+      const data = snapshot.data(options)!;
+      return { ...data };
     },
   });
 
-  const { isLoading, data: todos } = useFirestoreQueryData<TodoType>(
-    [`listas/${listId}/todos`],
-    ref,
-    { subscribe: true }
-  );
+  const { data, isLoading } = useFirestoreDocument(["listas", listId], ref, {
+    subscribe: true,
+  });
+
+  const todos = data?.data()?.todos as FirestoreTodo[];
+
+  const { mutate } = useFirestoreDocumentMutation(ref, {
+    merge: true,
+  });
+
+  const updateTodo = (todoId: string, value: FirestoreTodo) => {
+    const updatedTodos = todos?.map((item) => {
+      if (item.id === todoId) {
+        return { ...item, ...value };
+      } else {
+        return item;
+      }
+    });
+
+    mutate({ todos: updatedTodos });
+  };
+
+  const createTodo = ({ task, done }: CreateTodoType) => {
+    mutate({
+      todos: arrayUnion({
+        id: Math.floor(Math.random() * 100),
+        task,
+        done,
+        createdAt: Timestamp.now(),
+        deletedAt: null,
+      }),
+    });
+  };
 
   return {
+    todos: todos.filter((todo) => todo.deletedAt === null),
     isLoading,
-    todos,
+    mutate,
+    updateTodo,
+    createTodo,
   };
 };
 

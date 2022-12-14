@@ -6,17 +6,15 @@ import type { TextFieldProps } from "./types";
 const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
   ({ className, ...props }, ref) => {
     return (
-      <label className="relative hover:cursor-pointer">
-        <input
-          type="text"
-          ref={ref}
-          className={clsx(
-            "focus:outline-none text-white w-full bg-transparent disabled:opacity-50",
-            className
-          )}
-          {...props}
-        />
-      </label>
+      <input
+        type="text"
+        ref={ref}
+        className={clsx(
+          "focus:outline-none text-white w-full bg-transparent disabled:opacity-50",
+          className
+        )}
+        {...props}
+      />
     );
   }
 );

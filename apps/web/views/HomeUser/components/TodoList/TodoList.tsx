@@ -1,110 +1,117 @@
-import clsx from "clsx";
-import { doc, Timestamp, updateDoc } from "firebase/firestore";
-
 import { useState } from "react";
-import { firestore } from "../../../../utils/firebase";
+import clsx from "clsx";
+import { Timestamp } from "firebase/firestore";
+import { Reorder } from "framer-motion";
 
-import useTodoList from "../../hooks/useTodoList";
-
-import TodoItem from "../TodoItem";
 import { FilterOptions, TodoListProps } from "./types";
+import TodoItem from "../TodoItem";
+import useTodoList from "../../hooks/useTodoList";
+import { FirestoreTodo } from "../../types";
+import { FILTERS } from "./constants";
 
 const TodoList: React.FC<TodoListProps> = ({ listId }) => {
-  const { isLoading, todos } = useTodoList(listId);
-  const [filter, setFilter] = useState<FilterOptions>("all");
+  const [activeFilter, setActiveFilter] = useState<FilterOptions>("all");
+  const { isLoading, mutate, todos } = useTodoList(listId);
 
   const handleFilter = (filter: FilterOptions) => {
-    setFilter(filter);
+    setActiveFilter(filter);
   };
 
   const handleClearCompleted = () => {
-    todos?.forEach(async (todo) => {
+    const newTodoList = todos?.map((todo) => {
       if (todo.done) {
-        const docRef = doc(firestore, `listas/${listId}/todos/${todo.id}`);
-        // As we need to dinamically generate the docRef we can't use react-query-firebase
-        // for batching update docs in a collection.
-        await updateDoc(docRef, {
-          deletedAt: Timestamp.now(),
-        });
+        return { ...todo, deletedAt: Timestamp.now() };
+      } else {
+        return todo;
       }
     });
+
+    mutate({ todos: newTodoList });
+  };
+
+  const handleReorder = (newtodos: FirestoreTodo[]) => {
+    mutate({ todos: newtodos });
   };
 
   if (isLoading) {
-    return <p>loading...</p>;
+    return <div className="bg-slate-800 rounded-lg h-12"></div>;
   }
 
   if (!isLoading && !todos?.length) {
-    return <p> Create your first task! </p>;
+    return (
+      <div className="bg-slate-800 rounded-lg px-4 py-3 h-12 flex items-center">
+        <p className="text-white"> Write your first task </p>
+      </div>
+    );
   }
 
   if (todos?.length) {
-    const remaining = todos.reduce(
-      (prev, todo) => (!todo.done ? prev + 1 : prev),
-      0
-    );
+    const remaining = todos.reduce((prev, todo) => {
+      switch (activeFilter) {
+        case "all":
+          return prev + 1;
+        case "active":
+          return !todo.done ? prev + 1 : prev;
+        case "completed":
+          return todo.done ? prev + 1 : prev;
+      }
+    }, 0);
 
     return (
-      <>
+      <div className="bg-slate-800 rounded-lg text-white text-opacity-50 pt-3">
+        {remaining === 0 && (
+          <p className="pb-4 px-4"> Any task match filters </p>
+        )}
         {/* Todo List */}
-        <div className="rounded-t-lg overflow-y-scroll max-h-64">
-          {todos.map((todo, i) => (
-            <TodoItem
-              key={`todo-item-${i}`}
-              todo={todo}
-              listId={listId}
-              className={clsx("border-b border-b-white border-opacity-5", {
-                hidden:
-                  (filter === "active" && todo.done) ||
-                  (filter === "completed" && !todo.done) ||
-                  todo.deletedAt !== null,
-              })}
-            />
+        <Reorder.Group values={todos} axis="y" onReorder={handleReorder}>
+          {todos.map((todo) => (
+            <Reorder.Item value={todo} key={todo.id}>
+              <TodoItem
+                todo={{ id: todo.id || "", ...todo }}
+                listId={listId}
+                className={clsx("border-b border-b-white border-opacity-5", {
+                  hidden:
+                    (activeFilter === "active" && todo.done) ||
+                    (activeFilter === "completed" && !todo.done) ||
+                    todo.deletedAt !== null,
+                })}
+              />
+            </Reorder.Item>
           ))}
-        </div>
+        </Reorder.Group>
 
         {/* Footer */}
-        <div className="flex items-center justify-between py-2 px-4 bg-slate-800 rounded-b-lg text-white">
+        <div className="flex items-center justify-between  px-4">
           <span
             className={clsx("text-xs text-opacity-50 ", {
               "oapcity-60": remaining === 0,
             })}
           >
-            {remaining} pending
+            {remaining} remaining
           </span>
 
-          <div>
-            <button
-              className={clsx("text-xs", {
-                "opacity-50": filter !== "all",
-              })}
-              onClick={() => handleFilter("all")}
-            >
-              All
-            </button>
-            <button
-              className={clsx("text-xs mx-2 ", {
-                "opacity-50": filter !== "active",
-              })}
-              onClick={() => handleFilter("active")}
-            >
-              Acitve
-            </button>
-            <button
-              className={clsx("text-xs ", {
-                "opacity-50": filter !== "completed",
-              })}
-              onClick={() => handleFilter("completed")}
-            >
-              Completed
-            </button>
+          <div className="grid grid-flow-col gap-3">
+            {FILTERS.map((item) => (
+              <button
+                key={`filter-${item.key}`}
+                className={clsx(
+                  "text-xs hover:opacity-75 transition-all py-4",
+                  {
+                    "opacity-50": activeFilter !== item.key,
+                  }
+                )}
+                onClick={() => handleFilter(item.key)}
+              >
+                {item.label}
+              </button>
+            ))}
           </div>
 
           <button className="text-xs" onClick={handleClearCompleted}>
             Clear completed
           </button>
         </div>
-      </>
+      </div>
     );
   }
   return <p> Ha ocurrido un error inesperado</p>;

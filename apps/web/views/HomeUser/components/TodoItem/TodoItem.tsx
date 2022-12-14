@@ -1,36 +1,24 @@
-import {
-  useFirestoreCollectionMutation,
-  useFirestoreDocumentMutation,
-} from "@react-query-firebase/firestore";
 import clsx from "clsx";
-import { collection, doc } from "firebase/firestore";
-import { firestore } from "../../../../utils/firebase";
+
+import useTodoList from "../../hooks/useTodoList";
 import Checkbox from "../Checkbox";
+
 import { TodoItemProps } from "./types";
 
 const TodoItem: React.FC<TodoItemProps> = ({ todo, className, listId }) => {
-  const collectionRef = collection(firestore, `listas/${listId}/todos/`);
-  const docRef = doc(collectionRef, todo.id);
-
-  const { mutate: updateTodo } = useFirestoreDocumentMutation(docRef, {
-    merge: true,
-  });
-
-  const handleCheckbox = () => {
-    updateTodo({ done: !todo.done });
-  };
+  const { updateTodo } = useTodoList(listId);
 
   return (
     <div
       className={clsx(
-        "flex items-center w-full px-4 py-3 bg-slate-800",
+        "flex items-center w-full px-4 py-3 bg-slate-800 hover:bg-slate-700 hover:cursor-pointer",
         className
       )}
     >
       <Checkbox
         checked={todo.done}
         className="mr-3"
-        onChange={handleCheckbox}
+        onChange={() => updateTodo(todo.id, { done: !todo.done })}
       />
       <p
         className={clsx("text-white opacity-95", {
