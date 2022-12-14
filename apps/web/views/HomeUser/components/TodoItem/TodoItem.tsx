@@ -1,12 +1,11 @@
 import clsx from "clsx";
 
-import useTodoList from "../../hooks/useTodoList";
-import Checkbox from "../Checkbox";
-
 import { TodoItemProps } from "./types";
+import Checkbox from "../Checkbox";
+import { useAppContext } from "../../hooks/useAppContext";
 
-const TodoItem: React.FC<TodoItemProps> = ({ todo, className, listId }) => {
-  const { updateTodo } = useTodoList(listId);
+const TodoItem: React.FC<TodoItemProps> = ({ todo, className }) => {
+  const { updateTodo } = useAppContext();
 
   return (
     <div

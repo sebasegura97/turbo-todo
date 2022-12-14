@@ -4,12 +4,12 @@ import clsx from "clsx";
 import Checkbox from "../Checkbox";
 import TextField from "../TextField";
 import { TodoInputProps } from "./types";
-import useTodoList from "../../hooks/useTodoList";
+import { useAppContext } from "../../hooks/useAppContext";
 
-const TodoInput: React.FC<TodoInputProps> = ({ className, listId }) => {
+const TodoInput: React.FC<TodoInputProps> = ({ className }) => {
   const [task, setTask] = useState("");
   const [done, setDone] = useState(false);
-  const { createTodo } = useTodoList(listId);
+  const { createTodo } = useAppContext();
 
   const handleKeyUp = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter" && task.length) {
