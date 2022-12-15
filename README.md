@@ -1,14 +1,18 @@
 
 # Todo App
 
+The main objective is to learn and to pass out the interview process, so i'm choosing some overkilling tools to build the app. I know it should be easier with create-react-app, in a single repo and without typescript, but i would be booring and not challenging :smile:
+
 ## App url:
 https://turbo-todo-web.vercel.app/
 
 ## Stack
 
+**Bundler:** Turborepo, as i want to learn more about mono-repos and turbo-repo.
+
 **Frontend:** React and Next.js with typescript, tailwindcss as css framework, framer motion for animations and jest for unit testing. Deployed on vercel.
 
-****Backend:**** Firebase.
+**Backend:** Firebase.
 
 **CI/CD:** Github actions
 
