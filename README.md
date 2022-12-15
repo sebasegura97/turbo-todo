@@ -1,9 +1,9 @@
 
 # Todo App
-Este todo app tiene dos objetivos
+
 ## Stack
 
-**Frontend:** React and Next.js with typescript, tailwind as css framework and framer motion for animations, playwright for e2e and jest for unit testing. Deploy on vercel.
+**Frontend:** React and Next.js with typescript, tailwind as css framework and framer motion for animations and jest for unit testing. Deploy on vercel.
 
 ****Backend:**** firebase/firestore.
 
