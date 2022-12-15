@@ -28,7 +28,7 @@ const TodoList: React.FC<TodoListProps> = () => {
   if (todos?.length) {
     return (
       <div className="dark:bg-slate-800 bg-slate-200 rounded-t-lg text-opacity-50 overflow-auto">
-        {remaining === 0 && (
+        {remaining === 0 && activeFilter !== "all" && (
           <p className="py-3 px-4"> There isnt tasks that match filters </p>
         )}
         <Reorder.Group values={todos} axis="y" onReorder={reorderTodos}>
