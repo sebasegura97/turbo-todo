@@ -1,6 +1,9 @@
 
 # Todo App
 
+## App url:
+https://turbo-todo-web.vercel.app/
+
 ## Stack
 
 **Frontend:** React and Next.js with typescript, tailwindcss as css framework, framer motion for animations and jest for unit testing. Deployed on vercel.
