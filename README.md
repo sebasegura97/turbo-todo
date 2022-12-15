@@ -3,9 +3,9 @@
 
 ## Stack
 
-**Frontend:** React and Next.js with typescript, tailwind as css framework and framer motion for animations and jest for unit testing. Deploy on vercel.
+**Frontend:** React and Next.js with typescript, tailwindcss as css framework, framer motion for animations and jest for unit testing. Deployed on vercel.
 
-****Backend:**** firebase/firestore.
+****Backend:**** Firebase.
 
 **CI/CD:** Github actions
 
