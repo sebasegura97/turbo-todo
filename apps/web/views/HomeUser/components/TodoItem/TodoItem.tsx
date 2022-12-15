@@ -15,6 +15,7 @@ const TodoItem: React.FC<TodoItemProps> = ({ todo, className }) => {
       )}
     >
       <Checkbox
+        data-testid="checkbox-task-completed"
         checked={todo.done}
         className="mr-3"
         onChange={() => updateTodo(todo.id, { done: !todo.done })}

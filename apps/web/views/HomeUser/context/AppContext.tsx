@@ -2,20 +2,10 @@ import { arrayUnion, Timestamp } from "firebase/firestore";
 import React, { createContext, useState } from "react";
 import useTodoList, { FilterOptions } from "../hooks/useTodoList";
 import { CreateTodoType, FirestoreTodo } from "../types";
+import { INITIAL_STATE } from "./constants";
 import { AppContextType } from "./types";
 
-export const AppContext = createContext<AppContextType>({
-  listId: "",
-  remaining: 0,
-  activeFilter: "all",
-  todos: [],
-  isLoading: false,
-  updateTodo: () => {},
-  createTodo: () => {},
-  filterTodos: () => {},
-  clearCompletedTodos: () => {},
-  reorderTodos: () => {},
-});
+export const AppContext = createContext<AppContextType>(INITIAL_STATE);
 
 const { Provider } = AppContext;
 

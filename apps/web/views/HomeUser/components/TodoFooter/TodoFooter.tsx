@@ -1,6 +1,7 @@
 import clsx from "clsx";
-import { useAppContext } from "../../hooks/useAppContext";
+
 import { FILTERS } from "./constants";
+import { useAppContext } from "../../hooks/useAppContext";
 
 const TodoFooter = () => {
   const { remaining, filterTodos, clearCompletedTodos, activeFilter } =

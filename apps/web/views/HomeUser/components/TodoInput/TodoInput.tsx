@@ -40,7 +40,12 @@ const TodoInput: React.FC<TodoInputProps> = ({ className }) => {
         className
       )}
     >
-      <Checkbox checked={done} onChange={handleCheckbox} className="mr-4" />
+      <Checkbox
+        data-testid="todo-input-checkbox"
+        checked={done}
+        onChange={handleCheckbox}
+        className="mr-4"
+      />
       <TextField
         placeholder="Create a new todo"
         onKeyUp={handleKeyUp}
